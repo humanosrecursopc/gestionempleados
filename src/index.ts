@@ -9,6 +9,7 @@ import employees from './modules/employees';
 import payroll from './modules/payroll';
 import attendance from './modules/attendance';
 import systems from './modules/systems';
+import auth from './modules/auth';
 
 const app = new Hono<{ Bindings: Env; Variables: Variables }>();
 
@@ -46,6 +47,7 @@ app.route('/attendance/webhook', attendance);
 app.use('/api/*', licenseMiddleware);
 
 // API Routes
+app.route('/api/auth', auth);
 app.route('/api/employees', employees);
 app.route('/api/payroll', payroll);
 app.route('/api/attendance', attendance);
