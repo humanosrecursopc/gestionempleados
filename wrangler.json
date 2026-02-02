@@ -1,0 +1,16 @@
+{
+	"compatibility_date": "2025-10-08",
+	"main": "src/index.ts",
+	"name": "gestionempleados",
+	"upload_source_maps": true,
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_id": "796893a3-7538-4246-9673-3e648b273ce9",
+			"database_name": "gestionempleados"
+		}
+	],
+	"observability": {
+		"enabled": true
+	}
+}
