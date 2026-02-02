@@ -27,5 +27,11 @@
 		"dev": "pnpm seedLocalD1 && wrangler dev",
 		"predeploy": "wrangler d1 migrations apply DB --remote",
 		"seedLocalD1": "wrangler d1 migrations apply DB --local"
+	},
+	"dependencies": {
+		"@hono/zod-validator": "^0.7.6",
+		"hono": "^4.11.7",
+		"jose": "^6.1.3",
+		"zod": "^4.3.6"
 	}
 }

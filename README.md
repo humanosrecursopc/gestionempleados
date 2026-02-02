@@ -1,59 +1,60 @@
-# Worker + D1 Database
+# Kamila HRM - Enterprise Solution (Cloudflare + D1)
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/d1-template)
+Sistema integral de Gestión de Capital Humano y Nómina inteligente para la República Dominicana.
 
-![Worker + D1 Template Preview](https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/cb7cb0a9-6102-4822-633c-b76b7bb25900/public)
+## 🚀 Módulos Implementados
 
-<!-- dash-content-start -->
+### 1. Gestión de Capital Humano
+- **Expediente Digital**: Datos personales, laborales y bancarios.
+- **KPIs**: Conteo de activos, altas y bajas del mes.
+- **Filtros**: Búsqueda por departamento, cargo y sede (Central / Norte / Remoto).
 
-D1 is Cloudflare's native serverless SQL database ([docs](https://developers.cloudflare.com/d1/)). This project demonstrates using a Worker with a D1 binding to execute a SQL statement. A simple frontend displays the result of this query:
+### 2. Nómina Inteligente (RD 🇩🇴)
+- **Cálculo Automático**: 
+  - TSS: SFS (3.04%), AFP (2.87%).
+  - ISR: Escala progresiva DGII 2024.
+  - Aportes Patronales: SFS, AFP, SRL, INFOTEP.
+- **Seguridad**: Validación por OTP para aprobación de pagos.
 
-```SQL
-SELECT * FROM comments LIMIT 3;
+### 3. Control de Asistencia (Biometría)
+- **Webhooks**: Integración lista para terminales faciales Hikvision.
+- **Mobile**: Registro con Geolocalización y validación antifraude.
+
+### 4. Gestión de Licencias (Sistemas)
+- Control de inventario de software (Office 365, AWS, etc.).
+- Monitoreo de presupuesto mensual y anual.
+
+### 5. Seguridad y Kill-Switch
+- **Middleware de Licencia**: Bloqueo global por falta de pago o revocación.
+- **RBAC**: Roles de Admin, RRHH y Operador.
+- **Auditoría**: Registro de acciones críticas.
+
+## 🛠️ Tecnologías
+- **Backend**: Cloudflare Workers + Hono.
+- **Base de Datos**: Cloudflare D1 (SQLite).
+- **Lenguaje**: TypeScript.
+- **Validación**: Zod.
+
+## 📦 Despliegue
+
+```bash
+# Instalar dependencias
+pnpm install
+
+# Aplicar migraciones a D1 (Local)
+pnpm seedLocalD1
+
+# Aplicar migraciones (Producción)
+pnpm predeploy
+
+# Correr en desarrollo
+pnpm dev
 ```
 
-The D1 database is initialized with a `comments` table and this data:
+## 🔐 Endpoints Principales
 
-```SQL
-INSERT INTO comments (author, content)
-VALUES
-    ('Kristian', 'Congrats!'),
-    ('Serena', 'Great job!'),
-    ('Max', 'Keep up the good work!')
-;
-```
-
-> [!IMPORTANT]
-> When using C3 to create this project, select "no" when it asks if you want to deploy. You need to follow this project's [setup steps](https://github.com/cloudflare/templates/tree/main/d1-template#setup-steps) before deploying.
-
-<!-- dash-content-end -->
-
-## Getting Started
-
-Outside of this repo, you can start a new project with this template using [C3](https://developers.cloudflare.com/pages/get-started/c3/) (the `create-cloudflare` CLI):
-
-```
-npm create cloudflare@latest -- --template=cloudflare/templates/d1-template
-```
-
-A live public deployment of this template is available at [https://d1-template.templates.workers.dev](https://d1-template.templates.workers.dev)
-
-## Setup Steps
-
-1. Install the project dependencies with a package manager of your choice:
-   ```bash
-   npm install
-   ```
-2. Create a [D1 database](https://developers.cloudflare.com/d1/get-started/) with the name "d1-template-database":
-   ```bash
-   npx wrangler d1 create d1-template-database
-   ```
-   ...and update the `database_id` field in `wrangler.json` with the new database ID.
-3. Run the following db migration to initialize the database (notice the `migrations` directory in this project):
-   ```bash
-   npx wrangler d1 migrations apply --remote d1-template-database
-   ```
-4. Deploy the project!
-   ```bash
-   npx wrangler deploy
-   ```
+- `GET /api/employees`: Listado de empleados con filtros.
+- `POST /api/payroll/calculate/:id`: Calcula nómina con leyes de RD.
+- `POST /api/attendance/punch`: Registro de asistencia (App/Web).
+- `POST /attendance/webhook/hikvision`: Webhook para terminales físicos.
+- `GET /system/status`: Verifica estado de la licencia global.
