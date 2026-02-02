@@ -6,8 +6,8 @@
 	"d1_databases": [
 		{
 			"binding": "DB",
-			"database_id": "692b113a-5031-41c7-8723-aa205686373d",
-			"database_name": "gestionempleados"
+			"database_id": "0c84e83c-0cc7-4c62-a5d1-765b237ddb57",
+			"database_name": "kamila-hrm-db"
 		}
 	],
 	"observability": {
